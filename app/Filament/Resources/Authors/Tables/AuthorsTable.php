@@ -19,7 +19,8 @@ class AuthorsTable
             ->columns([
                 ImageColumn::make('avatar')
                     ->disk('public')
-                    ->imageHeight(40)
+                    ->height(40)
+                    ->width(40)
                     ->circular()
                     ->searchable(),
                 TextColumn::make('user.name')
