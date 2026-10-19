@@ -27,4 +27,13 @@ class News extends Model
     public function banner(){
         return $this->hasOne(Banner::class);
     }
+
+    public function getThumbnailUrlAttribute(): string
+    {
+        if ($this->thumbnail && file_exists(public_path('storage/' . $this->thumbnail))) {
+            return asset('storage/' . $this->thumbnail);
+        }
+
+        return asset('assets/img/Berita-Liburan.png');
+    }
 }

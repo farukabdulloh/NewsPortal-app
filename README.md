@@ -1,59 +1,163 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🌿 NewsPortal — Modern News & Editorial Web Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat&logo=laravel)](https://laravel.com)
+[![Filament](https://img.shields.io/badge/Filament-v5.0-F59E0B?style=flat&logo=filament)](https://filamentphp.com)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4.0-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php)](https://php.net)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## About Laravel
+**NewsPortal** adalah aplikasi portal berita dan artikel berbasis **Laravel 12** dan **Filament v5** dengan antarmuka modern bertema **Soft Sage Green**, dukungan **Light Mode & Night Mode** adaptif, sistem otentikasi berbasis peran (*Admin* & *Author*), serta manajemen konten berita yang dinamis.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Dirancang dengan standar rekayasa perangkat lunak modern (clean architecture, robust security, zero-downtime database seeding, dan automated testing) sebagai portofolio profesional Software Engineer / Full Stack Web Developer.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Fitur Utama
 
-## Learning Laravel
+### 🌐 Antarmuka Publik (Public Website)
+- **Desain Modern 2026 (Soft Sage Green Aesthetic):** Menggunakan palet warna hijau lembut (*sage green*), *off-white*, dan tipografi *Plus Jakarta Sans* yang nyaman dibaca untuk konten editorial.
+- **Night Mode / Dark Mode:**
+  - Pilihan tema *Light Mode* dan *Night Mode* (warna dasar *charcoal* & *muted green*, bukan *pure black*).
+  - Preferensi tema disimpan secara persisten di `localStorage` tanpa efek kedip (*anti-FOUC*).
+  - Transisi warna yang halus (*subtle CSS transitions*).
+- **Hero Carousel Banner:** Menampilkan sorotan berita utama menggunakan *Swiper Carousel*.
+- **Berita Unggulan & Liputan Terbaru:** Grid berita responsif dengan kategori dan *reading time estimate*.
+- **Pencarian Berita:** Fitur pencarian artikel *real-time* berdasarkan judul dan isi berita.
+- **Halaman Detail Berita & Profil Author:** Dilengkapi *breadcrumbs*, informasi penulis, artikel terkait, dan *author bio*.
+- **Desain Responsif:** Optimal di semua ukuran layar (Desktop, Laptop, Tablet, dan Mobile Smartphone).
+- **Fallback Aset Pintar:** Mencegah gambar rusak (*broken image 404*) secara otomatis jika file penyimpanan lokal belum terpasang.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 🛡️ Admin Panel & Otentikasi (Filament v5)
+- **Role-based Authentication:** Pemisahan hak akses antara `Admin` (akses penuh: Kelola Pengguna, Penulis, Berita, Kategori, Banner) dan `Author` (hanya dapat mengelola berita miliknya sendiri).
+- **Tombol Back ke Website:** Halaman login Filament dilengkapi tombol `← Kembali ke Website (Back)` yang mengarah kembali ke beranda publik tanpa mengubah integritas otentikasi.
+- **Registrasi Penulis Mandiri:** Calon kontributor dapat mendaftar melalui `/admin/register` dengan menyertakan biodata dan avatar.
+- **Manajemen Berita Interaktif:** Rich text editor, status berita unggulan (*featured toggle*), upload thumbnail, dan pembuatan *slug* otomatis.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### ⚙️ Keamanan & Kestabilan
+- Password dienkripsi dengan standar bcrypt Laravel (`'password' => 'hashed'`).
+- Mencegah *N+1 Query Problem* dengan *eager loading* relasi Eloquent.
+- *Strict Model Not Found Handling* (`firstOrFail()`) untuk mencegah celah *null pointer exception*.
+- CLI Command aman `php artisan admin:manage` untuk membuat atau mereset password admin tanpa *hardcode* kredensial ke repository.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🛠️ Tech Stack
 
-### Premium Partners
+- **Backend:** PHP 8.2+, Laravel 12.x
+- **Admin Panel:** Filament v5
+- **Frontend / Styling:** Blade, Tailwind CSS v4, Vite 7, Swiper JS
+- **Database:** MySQL / SQLite
+- **Testing:** Pest PHP / PHPUnit
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🚀 Panduan Instalasi Lokal (Getting Started)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Clone Repository
+```bash
+git clone https://github.com/farukabdulloh/NewsPortal-app.git
+cd NewsPortal-app
+```
 
-## Code of Conduct
+### 2. Install Dependency PHP & Node
+```bash
+composer install
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Konfigurasi Environment (`.env`)
+Salin file `.env.example` menjadi `.env`:
+```bash
+cp .env.example .env
+# Pada Windows PowerShell:
+# Copy-Item .env.example .env
+```
+Buka file `.env` dan sesuaikan koneksi database Anda, contohnya:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=newsportal_app
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Security Vulnerabilities
+### 4. Generate Application Key & Storage Link
+```bash
+php artisan key:generate
+php artisan storage:link
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Jalankan Migration & Database Seeder
+Database seeder sudah dilengkapi data kategori, artikel berita lengkap, banner, penulis, serta penyediaan thumbnail otomatis:
+```bash
+php artisan migrate --seed
+```
 
-## License
+### 6. Kelola / Reset Akun Admin
+Jika Anda ingin melihat atau mereset akun administrator secara aman:
+```bash
+# Melihat daftar admin terdaftar:
+php artisan admin:manage --list
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Membuat admin baru atau mereset password:
+php artisan admin:manage --email=admin@newsportal.com --password=PasswordBaru123!
+```
+
+### 7. Jalankan Build Aset & Server
+```bash
+# Compile aset frontend:
+npm run build
+
+# Jalankan server lokal:
+php artisan serve
+```
+Buka browser pada:
+- **Website Publik:** `http://localhost:8000`
+- **Admin Panel:** `http://localhost:8000/admin`
+
+---
+
+## 🧪 Menjalankan Automated Testing
+
+Proyek ini telah dilengkapi dengan *test suite* otomatis untuk memastikan kestabilan seluruh endpoint publik, otentikasi, dan fungsionalitas CRUD:
+
+```bash
+php artisan test
+```
+
+Semua pengujian berjalan secara otomatis menggunakan *in-memory SQLite* dengan *RefreshDatabase*.
+
+---
+
+## 📦 Panduan Deployment ke Production
+
+1. Pastikan variabel pada `.env` server production:
+   - `APP_ENV=production`
+   - `APP_DEBUG=false`
+   - `APP_KEY` terisi
+   - Konfigurasi database produksi (`DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) terisi dengan benar.
+2. Jalankan perintah optimasi:
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   php artisan config:cache
+   php artisan route:cache
+   php artisan view:cache
+   php artisan storage:link
+   php artisan migrate --force
+   ```
+3. Lakukan build frontend:
+   ```bash
+   npm ci
+   npm run build
+   ```
+4. Jika database produksi masih kosong, Anda dapat menjalankan seeder awal:
+   ```bash
+   php artisan db:seed --force
+   ```
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dirilis di bawah lisensi [MIT](LICENSE).

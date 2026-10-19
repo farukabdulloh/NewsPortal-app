@@ -23,20 +23,20 @@ class NewsController extends Controller
             ->paginate(3)
             ->withQueryString();
     
-        return view('pages::news.index', compact('news'));
+        return view('pages.news.index', compact('news', 'search'));
     }
 
     public function show($slug){
-        $news = News::where('slug', $slug)->first();
-        $newest = News:: orderBy('created_at', 'desc')->take(4)->get();
+        $news = News::where('slug', $slug)->firstOrFail();
+        $newest = News::where('id', '!=', $news->id)->orderBy('created_at', 'desc')->take(4)->get();
 
-        return view('pages/news.show' , compact('news','newest'));
+        return view('pages.news.show', compact('news', 'newest'));
     }
 
     
     public function category($slug){
-        $category = NewsCategory::where('slug' ,$slug)->first();
+        $category = NewsCategory::where('slug', $slug)->firstOrFail();
 
-        return view('pages/news.news', compact('category'));
+        return view('pages.news.news', compact('category'));
     }
 }

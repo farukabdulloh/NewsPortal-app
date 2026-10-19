@@ -21,4 +21,12 @@ class Author extends Model
         return $this->hasMany(News::class);
     }
 
+    public function getAvatarUrlAttribute(): string
+    {
+        if ($this->avatar && file_exists(public_path('storage/' . $this->avatar))) {
+            return asset('storage/' . $this->avatar);
+        }
+
+        return asset('assets/img/profile.png');
+    }
 }

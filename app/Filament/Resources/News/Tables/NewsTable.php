@@ -19,8 +19,11 @@ class NewsTable
     {
         return $table
             ->columns([
-                TextColumn::make('author_id')
-                    ->numeric(),
+                TextColumn::make('author.user.name')
+                    ->label('Author')
+                    ->description(fn ($record) => '@' . ($record->author?->username ?? ''))
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('newsCategory.title')
                     ->label('Category')
                     ->sortable()

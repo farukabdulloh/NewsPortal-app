@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 class AuthorController extends Controller
 {
     public function show($username){
+        $author = Author::where('username', $username)->firstOrFail();
 
-        $author = Author::where('username' , $username)->first();
-
-        return view('pages/author.author', compact('author'));
+        return view('pages.author.author', compact('author'));
     }
 }

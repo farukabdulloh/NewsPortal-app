@@ -45,7 +45,7 @@ class UserForm
 
                 Toggle::make('email_verified_at')
                     ->label('Email Terverifikasi')
-                    ->dehydrated(false)
+                    ->dehydrated(true)
                     ->afterStateHydrated(function ($component, $state) {
                         $component->state($state !== null);
                     })

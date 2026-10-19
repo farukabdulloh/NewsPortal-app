@@ -10,12 +10,10 @@ use Illuminate\Http\Request;
 class LandingController extends Controller
 {
     public function index(){
-
-        $banners = Banner::all();
-        $featureds = News::where('is_featured', true)->get();
-        $news = News:: orderBy('created_at', 'desc')->take(4)->get();
-        $authors = Author::all()->take(5);
-
+        $banners = Banner::with(['news.newsCategory', 'news.author.user'])->get();
+        $featureds = News::with(['newsCategory', 'author.user'])->where('is_featured', true)->latest()->take(4)->get();
+        $news = News::with(['newsCategory', 'author.user'])->latest()->take(5)->get();
+        $authors = Author::with(['user', 'news'])->take(5)->get();
 
         return view('pages.landing', compact('banners', 'featureds', 'news', 'authors'));
     }
