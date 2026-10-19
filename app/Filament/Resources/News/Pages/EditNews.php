@@ -16,4 +16,20 @@ class EditNews extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $user = auth()->user();
+        if ($user && ! $user->isAdmin() && $user->author) {
+            $data['author_id'] = $user->author->id;
+            $data['is_featured'] = $this->record->is_featured;
+        }
+
+        return $data;
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

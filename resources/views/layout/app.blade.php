@@ -73,8 +73,9 @@
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             <li><a href="{{ route('landing') }}" class="hover:text-[#528270] dark:hover:text-[#88b5a3] transition-colors">Beranda</a></li>
             <li><a href="{{ route('news.index') }}" class="hover:text-[#528270] dark:hover:text-[#88b5a3] transition-colors">Semua Berita</a></li>
-            <li><a href="/admin/login" class="hover:text-[#528270] dark:hover:text-[#88b5a3] transition-colors">Masuk Admin</a></li>
-            <li><a href="/admin/register" class="hover:text-[#528270] dark:hover:text-[#88b5a3] transition-colors">Gabung Penulis</a></li>
+            <li><a href="{{ url('/author/login') }}" class="hover:text-[#528270] dark:hover:text-[#88b5a3] transition-colors">Masuk Penulis</a></li>
+            <li><a href="{{ url('/author/register') }}" class="hover:text-[#528270] dark:hover:text-[#88b5a3] transition-colors">Daftar Penulis</a></li>
+            <li><a href="{{ url('/admin/login') }}" class="hover:text-[#528270] dark:hover:text-[#88b5a3] transition-colors">Masuk Admin</a></li>
           </ul>
         </div>
       </div>

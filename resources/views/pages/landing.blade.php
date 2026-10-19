@@ -18,6 +18,7 @@
                     <img 
                       src="{{ $banner->news->thumbnail_url }}" 
                       alt="{{ $banner->news->title }}" 
+                      onerror="this.onerror=null;this.src='{{ asset('assets/img/Berita-Liburan.png') }}';"
                       class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
@@ -36,6 +37,7 @@
                         <img 
                           src="{{ $banner->news->author?->avatar_url ?? asset('assets/img/profile.png') }}" 
                           alt="{{ $banner->news->author?->user?->name ?? 'Penulis' }}" 
+                          onerror="this.onerror=null;this.src='{{ asset('assets/img/profile.png') }}';"
                           class="w-6 h-6 rounded-full object-cover border border-white/40"
                         />
                         <span class="font-medium text-white">{{ $banner->news->author?->user?->name ?? 'NewsPortal Editor' }}</span>
@@ -84,6 +86,7 @@
               <img 
                 src="{{ $featured->thumbnail_url }}" 
                 alt="{{ $featured->title }}" 
+                onerror="this.onerror=null;this.src='{{ asset('assets/img/Berita-Liburan.png') }}';"
                 class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 loading="lazy"
               />
@@ -133,6 +136,7 @@
             <img 
               src="{{ $news[0]->thumbnail_url }}" 
               alt="{{ $news[0]->title }}" 
+              onerror="this.onerror=null;this.src='{{ asset('assets/img/Berita-Liburan.png') }}';"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </a>
@@ -163,6 +167,7 @@
                   <img 
                     src="{{ $item->thumbnail_url }}" 
                     alt="{{ $item->title }}" 
+                    onerror="this.onerror=null;this.src='{{ asset('assets/img/Berita-Liburan.png') }}';"
                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
@@ -211,7 +216,7 @@
             Kenali Author Terbaik Kami
           </h2>
         </div>
-        <a href="/admin/register" 
+        <a href="{{ url('/author/register') }}" 
            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-[#3e6657] dark:text-[#a8c7ba] bg-[#edf4f0] dark:bg-[#1a2721] hover:bg-[#e1ece5] dark:hover:bg-[#22332b] transition-colors self-start sm:self-auto border border-[#d2e3d9] dark:border-[#2c3d35]">
           <span>Gabung Menjadi Author</span>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -228,6 +233,7 @@
                 <img 
                   src="{{ $author->avatar_url }}" 
                   alt="{{ $author->user?->name ?? $author->username }}" 
+                  onerror="this.onerror=null;this.src='{{ asset('assets/img/profile.png') }}';"
                   class="w-full h-full rounded-full object-cover"
                   loading="lazy"
                 />
@@ -271,6 +277,7 @@
               <img 
                 src="{{ $item->thumbnail_url }}" 
                 alt="{{ $item->title }}" 
+                onerror="this.onerror=null;this.src='{{ asset('assets/img/Berita-Liburan.png') }}';"
                 class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 loading="lazy"
               />

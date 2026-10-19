@@ -22,6 +22,7 @@ class AuthorsTable
                     ->height(40)
                     ->width(40)
                     ->circular()
+                    ->defaultImageUrl(asset('assets/img/profile.png'))
                     ->searchable(),
                 TextColumn::make('user.name')
                     ->searchable(),

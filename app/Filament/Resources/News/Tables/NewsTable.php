@@ -36,6 +36,7 @@ class NewsTable
                     ->disk('public')
                     ->imageHeight(40)
                     ->circular()
+                    ->defaultImageUrl(asset('assets/img/Berita-Liburan.png'))
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

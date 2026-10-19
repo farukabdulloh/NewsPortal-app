@@ -17,4 +17,5 @@ Route::get('category/{slug}', [NewsController::class, 'category'])
     ->name('news.category');
 
 Route::get('author/{username}', [AuthorController::class, 'show'])
+    ->where('username', '^(?!(login|register|logout)$).*')
     ->name('author.show');

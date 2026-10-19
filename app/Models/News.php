@@ -30,8 +30,14 @@ class News extends Model
 
     public function getThumbnailUrlAttribute(): string
     {
-        if ($this->thumbnail && file_exists(public_path('storage/' . $this->thumbnail))) {
-            return asset('storage/' . $this->thumbnail);
+        if ($this->thumbnail) {
+            $cleanPath = ltrim(str_replace(['/storage/', 'storage/', 'public/'], '', $this->thumbnail), '/');
+            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath)) {
+                return \Illuminate\Support\Facades\Storage::disk('public')->url($cleanPath);
+            }
+            if (file_exists(public_path('storage/' . $cleanPath))) {
+                return asset('storage/' . $cleanPath);
+            }
         }
 
         return asset('assets/img/Berita-Liburan.png');

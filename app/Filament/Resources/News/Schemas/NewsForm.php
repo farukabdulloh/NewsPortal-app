@@ -63,7 +63,8 @@ class NewsForm
                     ->required(),
                 Toggle::make('is_featured')
                     ->label('Jadikan Berita Unggulan (Featured)')
-                    ->default(false),
+                    ->default(false)
+                    ->visible(fn () => auth()->user()?->isAdmin() ?? false),
                 RichEditor::make('content')
                     ->label('Konten Berita')
                     ->required()

@@ -69,23 +69,39 @@
           </svg>
         </button>
 
-        <!-- Login / Admin Dashboard Button -->
+        <!-- Login / Dashboard Actions -->
         @if (auth()->check())
-          <a href="{{ url('/admin') }}" 
-             class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-full shadow-xs transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-            <span>Dashboard</span>
-          </a>
+          @if (auth()->user()->isAdmin())
+            <a href="{{ url('/admin') }}" 
+               class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-full shadow-xs transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span>Dashboard Admin</span>
+            </a>
+          @else
+            <a href="{{ url('/author') }}" 
+               class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-full shadow-xs transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span>Dashboard Penulis</span>
+            </a>
+          @endif
         @else
-          <a href="{{ url('/admin/login') }}" 
-             class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-full shadow-xs transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-            </svg>
-            <span>Masuk</span>
-          </a>
+          <div class="hidden sm:flex items-center gap-2">
+            <a href="{{ url('/author/login') }}" 
+               class="inline-flex items-center px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-[#3e6657] dark:hover:text-[#88b5a3] hover:bg-slate-100 dark:hover:bg-[#1b2621] rounded-full transition-colors">
+              <span>Masuk Penulis</span>
+            </a>
+            <a href="{{ url('/admin/login') }}" 
+               class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-full shadow-xs transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+              </svg>
+              <span>Admin</span>
+            </a>
+          </div>
         @endif
 
         <!-- Mobile Menu Toggle Button -->
@@ -136,14 +152,26 @@
       </div>
 
       <!-- Mobile Auth Action -->
-      <div class="pt-3 border-t border-slate-200/60 dark:border-[#223029]">
+      <div class="pt-3 border-t border-slate-200/60 dark:border-[#223029] space-y-2">
         @if (auth()->check())
-          <a href="{{ url('/admin') }}" class="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-xl shadow-xs">
-            <span>Masuk ke Dashboard</span>
-          </a>
+          @if (auth()->user()->isAdmin())
+            <a href="{{ url('/admin') }}" class="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-xl shadow-xs">
+              <span>Masuk Dashboard Admin</span>
+            </a>
+          @else
+            <a href="{{ url('/author') }}" class="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-xl shadow-xs">
+              <span>Masuk Dashboard Penulis</span>
+            </a>
+          @endif
         @else
+          <a href="{{ url('/author/login') }}" class="flex items-center justify-center gap-2 w-full py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-[#1a2620] hover:bg-slate-200 rounded-xl">
+            <span>Masuk Penulis</span>
+          </a>
+          <a href="{{ url('/author/register') }}" class="flex items-center justify-center gap-2 w-full py-2 text-sm font-medium text-[#3e6657] dark:text-[#88b5a3] bg-[#edf4f0] dark:bg-[#1b2721] rounded-xl border border-[#d6e3dc] dark:border-[#283930]">
+            <span>Daftar Jadi Penulis</span>
+          </a>
           <a href="{{ url('/admin/login') }}" class="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-xl shadow-xs">
-            <span>Masuk / Login Admin</span>
+            <span>Masuk Admin</span>
           </a>
         @endif
       </div>

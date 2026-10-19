@@ -36,6 +36,7 @@
         <img 
           src="{{ $news->author?->avatar_url ?? asset('assets/img/profile.png') }}" 
           alt="{{ $news->author?->user?->name ?? 'Penulis' }}" 
+          onerror="this.onerror=null;this.src='{{ asset('assets/img/profile.png') }}';"
           class="w-9 h-9 rounded-full object-cover border border-[#528270]/40"
         />
         <div>
@@ -83,6 +84,7 @@
         <img 
           src="{{ $news->thumbnail_url }}" 
           alt="{{ $news->title }}" 
+          onerror="this.onerror=null;this.src='{{ asset('assets/img/Berita-Liburan.png') }}';"
           class="w-full max-h-[480px] object-cover"
         />
       </div>
@@ -98,6 +100,7 @@
           <img 
             src="{{ $news->author->avatar_url }}" 
             alt="{{ $news->author->user?->name ?? $news->author->username }}" 
+            onerror="this.onerror=null;this.src='{{ asset('assets/img/profile.png') }}';"
             class="w-20 h-20 rounded-full object-cover border-2 border-[#528270]/40 shrink-0"
           />
           <div class="flex-1 space-y-2">
@@ -138,6 +141,7 @@
                   <img 
                     src="{{ $new->thumbnail_url }}" 
                     alt="{{ $new->title }}" 
+                    onerror="this.onerror=null;this.src='{{ asset('assets/img/Berita-Liburan.png') }}';"
                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                   />

@@ -23,8 +23,14 @@ class Author extends Model
 
     public function getAvatarUrlAttribute(): string
     {
-        if ($this->avatar && file_exists(public_path('storage/' . $this->avatar))) {
-            return asset('storage/' . $this->avatar);
+        if ($this->avatar) {
+            $cleanPath = ltrim(str_replace(['/storage/', 'storage/', 'public/'], '', $this->avatar), '/');
+            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath)) {
+                return \Illuminate\Support\Facades\Storage::disk('public')->url($cleanPath);
+            }
+            if (file_exists(public_path('storage/' . $cleanPath))) {
+                return asset('storage/' . $cleanPath);
+            }
         }
 
         return asset('assets/img/profile.png');
