@@ -10,6 +10,7 @@ class Author extends Model
         'user_id',
         'username',
         'avatar',
+        'cover',
         'bio'
     ];
 
@@ -34,5 +35,20 @@ class Author extends Model
         }
 
         return asset('assets/img/profile.png');
+    }
+
+    public function getCoverUrlAttribute(): string
+    {
+        if ($this->cover) {
+            $cleanPath = ltrim(str_replace(['/storage/', 'storage/', 'public/'], '', $this->cover), '/');
+            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath)) {
+                return \Illuminate\Support\Facades\Storage::disk('public')->url($cleanPath);
+            }
+            if (file_exists(public_path('storage/' . $cleanPath))) {
+                return asset('storage/' . $cleanPath);
+            }
+        }
+
+        return asset('assets/img/bg-profile.png');
     }
 }

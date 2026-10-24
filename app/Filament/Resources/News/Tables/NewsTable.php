@@ -46,6 +46,13 @@ class NewsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('view_count')
+                    ->label('Views')
+                    ->numeric()
+                    ->sortable()
+                    ->alignEnd()
+                    ->badge()
+                    ->color('primary'),
                 ToggleColumn::make('is_featured')
                     ->visible(fn () => auth()->user()->isAdmin())
             ])

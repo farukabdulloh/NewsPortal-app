@@ -5,32 +5,64 @@
 @section('content')
 <div class="space-y-10">
 
-  <!-- Author Profile Hero Card -->
-  <div class="rounded-2xl p-6 sm:p-10 bg-white dark:bg-[#141d18] border border-slate-200/80 dark:border-[#223028] shadow-xs flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-    <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden p-1 bg-[#edf4f0] dark:bg-[#1b2621] border-2 border-[#528270]/40 shrink-0">
-      <img 
-        src="{{ $author->avatar_url }}" 
-        alt="{{ $author->user?->name ?? $author->username }}" 
-        onerror="this.onerror=null;this.src='{{ asset('assets/img/profile.png') }}';"
-        class="w-full h-full rounded-full object-cover"
+  <!-- Author Profile Hero Card with Cover Banner -->
+  <div class="rounded-2xl bg-white dark:bg-[#141d18] border border-slate-200/80 dark:border-[#223028] shadow-xs overflow-hidden">
+    <!-- Cover Banner -->
+    <div class="h-44 sm:h-60 md:h-72 w-full relative bg-[#edf4f0] dark:bg-[#1b2621] overflow-hidden">
+      <img
+        src="{{ $author->cover_url }}"
+        alt="Foto Sampul {{ $author->user?->name ?? $author->username }}"
+        onerror="this.onerror=null;this.src='{{ asset('assets/img/bg-profile.png') }}';"
+        class="w-full h-full object-cover"
       />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
     </div>
 
-    <div class="flex-1 space-y-3">
-      <div class="space-y-1">
-        <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#3e6657] dark:text-[#88b5a3] bg-[#edf4f0] dark:bg-[#1a2721] rounded-full border border-[#d2e3d9] dark:border-[#2b3c34]">
-          Penulis Berita
-        </span>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-          {{ $author->user?->name ?? $author->username }}
-        </h1>
-        <p class="text-sm font-medium text-[#528270] dark:text-[#88b5a3]">
-          {{ '@' . $author->username }}
-        </p>
+    <!-- Profile Details & Avatar Overlapping Cover -->
+    <div class="p-6 sm:p-10 pt-0 sm:pt-0 relative flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6 text-center sm:text-left -mt-14 sm:-mt-16">
+
+      <div class="flex flex-col sm:flex-row items-center sm:items-end gap-6">
+        <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden p-1 bg-white dark:bg-[#141d18] border-4 border-white dark:border-[#141d18] shadow-md shrink-0">
+          <img
+            src="{{ $author->avatar_url }}"
+            alt="{{ $author->user?->name ?? $author->username }}"
+            onerror="this.onerror=null;this.src='{{ asset('assets/img/profile.png') }}';"
+            class="w-full h-full rounded-full object-cover"
+          />
+        </div>
+
+        <div class="space-y-1 sm:pb-1">
+          <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#3e6657] dark:text-[#88b5a3] bg-[#edf4f0] dark:bg-[#1a2721] rounded-full border border-[#d2e3d9] dark:border-[#2b3c34]">
+            Penulis Berita
+          </span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+            {{ $author->user?->name ?? $author->username }}
+          </h1>
+          <p class="text-sm font-medium text-[#528270] dark:text-[#88b5a3]">
+            {{ '@' . $author->username }}
+          </p>
+        </div>
       </div>
 
-      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
-        {{ $author->bio }}
+      @if (auth()->check() && auth()->id() === $author->user_id)
+        <div class="sm:pb-1">
+          <a href="{{ url('/author/settings') }}"
+             class="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#528270] hover:bg-[#416a5a] rounded-xl shadow-xs transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Pengaturan Profil</span>
+          </a>
+        </div>
+      @endif
+
+    </div>
+
+    <!-- Bio & Stats section -->
+    <div class="px-6 sm:px-10 pb-8 space-y-4">
+      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
+        {{ $author->bio ?: 'Penulis belum menambahkan biodata.' }}
       </p>
 
       <div class="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
@@ -48,6 +80,7 @@
         </span>
       </div>
     </div>
+
   </div>
 
   <!-- Articles Written by Author -->

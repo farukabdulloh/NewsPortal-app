@@ -37,11 +37,21 @@ class NewsResource extends Resource
     {
         $query = parent::getEloquentQuery();
 
-        if(auth()->user()->isAdmin()) {
+        $user = auth()->user();
+
+        if ($user?->isAdmin()) {
             return $query;
         }
 
-        return $query->where('author_id', auth()->user()->author->id);
+        $authorId = $user?->author?->id;
+
+        if ($authorId === null) {
+            // Akun Author tanpa profil Author: tampilkan daftar kosong
+            // alih-alih error, tanpa membuat data apa pun secara diam-diam.
+            return $query->whereRaw('1 = 0');
+        }
+
+        return $query->where('author_id', $authorId);
     }
 
     public static function getRelations(): array

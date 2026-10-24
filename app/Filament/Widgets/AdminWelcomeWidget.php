@@ -6,7 +6,7 @@ use Filament\Widgets\Widget;
 
 class AdminWelcomeWidget extends Widget
 {
-    protected static string $view = 'filament.widgets.admin-welcome-widget';
+    protected string $view = 'filament.widgets.admin-welcome-widget';
 
     protected int | string | array $columnSpan = 'full';
 

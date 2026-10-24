@@ -6,7 +6,7 @@ use Filament\Widgets\Widget;
 
 class AuthorWelcomeWidget extends Widget
 {
-    protected static string $view = 'filament.widgets.author-welcome-widget';
+    protected string $view = 'filament.widgets.author-welcome-widget';
 
     protected int | string | array $columnSpan = 'full';
 

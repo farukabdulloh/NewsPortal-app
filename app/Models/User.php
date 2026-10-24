@@ -54,6 +54,20 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Author::class);
     }
 
+    public function getAvatarUrlAttribute(): string
+    {
+        return $this->author?->avatar_url ?? asset('assets/img/profile.png');
+    }
+
+    protected static function booted(): void
+    {
+        // Penghapusan diblokir selama User masih memiliki profil Author,
+        // agar atribusi berita tidak menjadi yatim.
+        static::deleting(function (User $user): bool {
+            return ! $user->author()->exists();
+        });
+    }
+
     public function isAdmin(){
         return $this->role === 'admin';
     }

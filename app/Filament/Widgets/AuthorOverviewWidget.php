@@ -13,7 +13,9 @@ class AuthorOverviewWidget extends BaseWidget
     protected static ?int $sort = 5;
 
     protected int | string | array $columnSpan = [
+        'default' => 'full',
         'md' => 1,
+        'lg' => 1,
         'xl' => 1,
     ];
 

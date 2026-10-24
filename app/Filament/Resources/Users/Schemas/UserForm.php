@@ -2,9 +2,12 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
+use App\Models\Author;
+use App\Models\User;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,7 +36,24 @@ class UserForm
                         'author' => 'Author',
                     ])
                     ->required()
-                    ->default('author'),
+                    ->default('author')
+                    ->live(),
+
+                TextInput::make('author_username')
+                    ->label('Username Author')
+                    ->helperText('Nama unik penulis untuk halaman publik, mis. budisantoso.')
+                    ->visible(fn (Get $get): bool => $get('role') === 'author')
+                    ->required(fn (Get $get): bool => $get('role') === 'author')
+                    ->maxLength(200)
+                    ->regex('/^[a-zA-Z0-9_.-]+$/')
+                    ->unique(
+                        table: Author::class,
+                        column: 'username',
+                        ignorable: fn (?User $record): ?Author => $record?->author,
+                    )
+                    ->afterStateHydrated(
+                        fn (TextInput $component, ?User $record) => $component->state($record?->author?->username)
+                    ),
 
                 TextInput::make('password')
                     ->label('Password')

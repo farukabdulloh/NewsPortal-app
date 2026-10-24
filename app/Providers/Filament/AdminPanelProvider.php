@@ -7,15 +7,19 @@ use App\Filament\Widgets\AdminStatsOverviewWidget;
 use App\Filament\Widgets\AdminWelcomeWidget;
 use App\Filament\Widgets\AuthorOverviewWidget;
 use App\Filament\Widgets\FeaturedNewsWidget;
+use App\Filament\Widgets\MostViewedNewsWidget;
 use App\Filament\Widgets\RecentNewsWidget;
+use App\Http\Middleware\PreventBackHistory;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Icons\Heroicon;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -48,6 +52,15 @@ class AdminPanelProvider extends PanelProvider
                 PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE,
                 fn () => view('filament.auth.back-button')
             )
+            ->renderHook(
+                PanelsRenderHook::SIDEBAR_FOOTER,
+                fn () => view('filament.navigation.sidebar-logout')
+            )
+            ->userMenuItems([
+                'logout' => MenuItem::make()
+                    ->label('Keluar (Logout)')
+                    ->icon(Heroicon::ArrowLeftStartOnRectangle),
+            ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -57,6 +70,7 @@ class AdminPanelProvider extends PanelProvider
                 AdminWelcomeWidget::class,
                 AdminStatsOverviewWidget::class,
                 RecentNewsWidget::class,
+                MostViewedNewsWidget::class,
                 FeaturedNewsWidget::class,
                 AuthorOverviewWidget::class,
             ])
@@ -73,6 +87,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                PreventBackHistory::class,
             ]);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\Authors\Schemas;
 
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
+use App\Models\Author;
+use App\Models\User;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class AuthorForm
@@ -15,20 +17,31 @@ class AuthorForm
         return $schema
             ->components([
                 Select::make('user_id')
-                    ->relationship('user', 'name')
+                    ->label('User')
+                    ->options(function (?Author $record): array {
+                        // Hanya User ber-role author; user milik record yang
+                        // sedang diedit tetap disertakan agar relasi lama
+                        // tidak hilang dari pilihan.
+                        return User::query()
+                            ->where('role', 'author')
+                            ->when($record?->user_id, fn ($query, int $userId) => $query->orWhere('id', $userId))
+                            ->pluck('name', 'id')
+                            ->all();
+                    })
                     ->searchable()
-                    ->preload()
-                    ->required( ),
+                    ->required()
+                    ->unique(ignoreRecord: true),
                 TextInput::make('username')
-                    ->required(),
+                    ->required()
+                    ->maxLength(200)
+                    ->regex('/^[a-zA-Z0-9_.-]+$/')
+                    ->unique(ignoreRecord: true),
                 FileUpload::make('avatar')
                      ->image()
                      ->disk('public')
                      ->directory('avatars')
-                     ->visibility('public')
-                     ->required(),
+                     ->visibility('public'),
                 Textarea::make('bio')
-                    ->required()
                     ->columnSpanFull(),
             ]);
     }
